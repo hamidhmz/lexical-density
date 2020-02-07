@@ -1,0 +1,23 @@
+version: "3.5"
+services:
+    app:
+        container_name: lexical-density
+        restart: always
+        build: .
+        volumes:
+        - ./:/app
+        ports:
+        - "8188:3000"
+        environment:
+        - "NODE_ENV=docker"
+        - "PORT=3000"
+        depends_on: ["mongo"]
+    mongo:
+        restart: always
+        image: mongo:4
+        volumes:
+        - mongo-data-lexical:/data/db
+        ports:
+        - "27017:27017"
+volumes: 
+    mongo-data-lexical:
